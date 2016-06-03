@@ -78,6 +78,7 @@
             {{ result.doc.description|capitalize }}
             </div>          
           </div>
+          {% if result.doc.file %}
           <div class="row">
             <div class="col-md-4">
               <strong>Image</strong>
@@ -86,6 +87,7 @@
               <img class="img-responsive" src="{{ app.url_generator.generate('photo', {'id': result.doc._id|trim, 'filename': result.doc.file }) }}" />
             </div>          
           </div>
+          {% endif %}
           <div class="row">
             <div class="col-md-4">
               <strong>Location</strong>

@@ -47,7 +47,7 @@ if ($services = getenv("VCAP_SERVICES")) {
 
 // initialize HTTP client
 $guzzle = new GuzzleHttp\Client([
-  //'verify' => false,
+  'verify' => false,
   'base_uri' => $app->config['settings']['db']['uri'] . '/',
 ]);
 
@@ -82,10 +82,9 @@ $app->get('/report', function (Request $request) use ($app) {
 
 // report submission handler
 $app->post('/report', function (Request $request) use ($app, $guzzle, $objectstore) {
-
   // collect input parameters
   $params = array(
-    'color' => strip_tags(trim($request->get('color'))),
+    'color' => strip_tags(trim(strtolower($request->get('color')))),
     'gender' => strip_tags(trim($request->get('gender'))),
     'age' => strip_tags(trim($request->get('age'))),
     'identifiers' => strip_tags(trim($request->get('identifiers'))),
@@ -174,7 +173,6 @@ $app->get('/search', function (Request $request) use ($app) {
 
 // search submission handler
 $app->post('/search', function (Request $request) use ($app, $guzzle) {
-
   // collect and sanitize inputs
   $color = strip_tags(trim($request->get('color')));
   $gender = strip_tags(trim($request->get('gender')));
@@ -186,6 +184,7 @@ $app->post('/search', function (Request $request) use ($app, $guzzle) {
   // generate query string based on inputs
   $criteria = array("(type:report)");
   if (!empty($color)) {
+    $color = strtolower($color);
     $criteria[] = "(color:$color)";
   }
   if (!empty($gender)) {
@@ -208,7 +207,6 @@ $app->post('/search', function (Request $request) use ($app, $guzzle) {
 
 // report display
 $app->get('/detail/{id}', function ($id) use ($app, $guzzle, $objectstore) {
-
   // retrieve selected report from database
   // using unique document identifier
   $response = $guzzle->get($app->config['settings']['db']['name'] . '/_all_docs?include_docs=true&key="'. $id . '"');
@@ -225,7 +223,6 @@ $app->get('/detail/{id}', function ($id) use ($app, $guzzle, $objectstore) {
 
 // photo display
 $app->get('/photo/{id}/{filename}', function ($id, $filename) use ($app, $guzzle, $objectstore) {
-
   // retrieve image file content from object store
   // using document identifier and filename
   // guess image MIME type from extension
@@ -250,7 +247,6 @@ $app->get('/photo/{id}/{filename}', function ($id, $filename) use ($app, $guzzle
 
 // map display
 $app->get('/map/{id}', function ($id) use ($app, $guzzle) {
-
   // retrieve selected report from database
   // using unique document identifier
   $response = $guzzle->get($app->config['settings']['db']['name'] . '/_all_docs?include_docs=true&key="'. $id . '"');
@@ -279,7 +275,6 @@ $app->get('/legal', function (Request $request) use ($app) {
 
 // reset handler
 $app->get('/reset-system', function (Request $request) use ($app, $guzzle, $objectstore) {
-  
   // retrieve all documents from database
   // delete all except design documents
   $response = $guzzle->get($app->config['settings']['db']['name'] . '/_all_docs?include_docs=true');
