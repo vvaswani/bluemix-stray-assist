@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stray Assist</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->  
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h4 class="pull-left">Details</h4>
+          <a href="{{ app.url_generator.generate('index') }}" class="pull-right btn btn-primary btn">Home</a>
+        </div>
+      </div> 
+      
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h4 class="pull-left">Identification</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Color</strong>
+            </div>
+            <div class="col-md-8">
+            {{ result.doc.color|capitalize }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Gender</strong>
+            </div>
+            <div class="col-md-8">
+            {{ result.doc.gender|capitalize }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Age</strong>
+            </div>
+            <div class="col-md-8">
+            {{ result.doc.age|capitalize }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Identifying marks</strong>
+            </div>
+            <div class="col-md-8">
+            {{ result.doc.identifiers|capitalize }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h4 class="pull-left">Details</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Description</strong>
+            </div>
+            <div class="col-md-8">
+            {{ result.doc.description|capitalize }}
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Image</strong>
+            </div>
+            <div class="col-md-8">
+              <img class="img-responsive" src="{{ app.url_generator.generate('photo', {'id': result.doc._id|trim, 'filename': result.doc.file }) }}" />
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Location</strong>
+            </div>
+            <div class="col-md-8">
+              {{ result.doc.latitude }}, {{ result.doc.longitude }} <br />
+              <a href="{{ app.url_generator.generate('map', {'id': result.doc._id|trim}) }}" class="btn btn-primary">Map</a></li> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h4 class="pull-left">Reporter</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+              <div class="col-md-4">
+                <strong>Name</strong>
+              </div>
+              <div class="col-md-8">
+              {{ result.doc.name|capitalize }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <strong>Phone</strong>
+              </div>
+              <div class="col-md-8">
+              {{ result.doc.phone }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <strong>Email address</strong>
+              </div>
+              <div class="col-md-8">
+              {{ result.doc.email }}
+              </div>
+            </div>
+        </div>
+      </div>
+
+    <div class="container">
+      <p class="text-center">
+        <a href="{{ app.url_generator.generate('legal') }}" role="button" class="btn btn-default btn-sm">Legal</a>
+        <a href="{{ app.url_generator.generate('legal') }}" role="button" class="btn btn-danger btn-sm">System Reset</a>
+    </div> 
+    
+  </body>
+</html>

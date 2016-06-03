@@ -1,0 +1,11 @@
+{
+    "require": {
+        "silex/silex": "*",
+        "twig/twig": "*",
+        "symfony/validator": "*",
+        "guzzlehttp/guzzle": "*",
+        "php-opencloud/openstack": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

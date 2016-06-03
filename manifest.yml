@@ -1,0 +1,8 @@
+---
+applications:
+- name: stray-assist-[initials]
+memory: 256M
+instances: 1
+host: stray-assist-[initials]
+buildpack: https://github.com/cloudfoundry/php-buildpack.git
+stack: cflinuxfs2
