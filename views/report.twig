@@ -48,6 +48,10 @@
       </div>
       {% endfor %}      
 
+      <div class="alert alert-info">
+        <strong>If you allow this application to access your location, it will automatically attach it to your report. This additional information makes it easier to locate the animal you're reporting.</strong>
+      </div>
+      
       <div>
         <form method="post" enctype="multipart/form-data" action="{{ app.url_generator.generate('report') }}">
           <input type="hidden" name="MAX_FILE_SIZE" value="300000000" />
@@ -64,7 +68,7 @@
                 <input type="text" class="form-control" id="color" name="color" required="true"></input>
               </div>
               <div class="form-group">
-                <label for="gender">Gender</label>
+                <label for="gender">Sex</label>
                 <select name="gender" id="gender" class="form-control" required="true">
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -90,7 +94,7 @@
             </div>
             <div class="panel-body">
               <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Description of injury</label>
                 <textarea name="description" id="identifiers" class="form-control" rows="3" required="true"></textarea>
               </div>
               <div class="form-group">
