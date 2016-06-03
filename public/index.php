@@ -47,7 +47,7 @@ if ($services = getenv("VCAP_SERVICES")) {
 
 // initialize HTTP client
 $guzzle = new GuzzleHttp\Client([
-  'verify' => false,
+  //'verify' => false,
   'base_uri' => $app->config['settings']['db']['uri'] . '/',
 ]);
 
@@ -330,6 +330,9 @@ function (doc) {
   }
   if (doc.datetime){    
     index("datetime", doc.datetime, {"store": "yes"});  
+  }  
+  if (doc.type){    
+    index("type", doc.type, {"store": "yes"});  
   }  
 }
 */
