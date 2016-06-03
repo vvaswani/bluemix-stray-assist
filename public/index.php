@@ -176,6 +176,7 @@ $app->post('/search', function (Request $request) use ($app, $guzzle) {
   // collect and sanitize inputs
   $color = strip_tags(trim($request->get('color')));
   $gender = strip_tags(trim($request->get('gender')));
+  $age = strip_tags(trim($request->get('age')));
   $keywords = strip_tags(trim($request->get('keywords')));
   if (!empty($keywords)) {
     $keywords = explode(',', strip_tags($request->get('keywords')));
@@ -190,6 +191,9 @@ $app->post('/search', function (Request $request) use ($app, $guzzle) {
   if (!empty($gender)) {
     $criteria[] = "(gender:$gender)";
   }
+  if (!empty($age)) {
+    $criteria[] = "(age:$age)";
+  }  
   if (is_array($keywords)) {
     foreach ($keywords as $keyword) {
       $keyword = trim($keyword);
@@ -329,5 +333,8 @@ function (doc) {
   if (doc.type){    
     index("type", doc.type, {"store": "yes"});  
   }  
+  if (doc.age){    
+    index("age", doc.age, {"store": "yes"});  
+  } 
 }
 */
