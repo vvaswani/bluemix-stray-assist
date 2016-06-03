@@ -47,7 +47,6 @@ if ($services = getenv("VCAP_SERVICES")) {
 
 // initialize HTTP client
 $guzzle = new GuzzleHttp\Client([
-  'verify' => false,
   'base_uri' => $app->config['settings']['db']['uri'] . '/',
 ]);
 
