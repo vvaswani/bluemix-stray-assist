@@ -47,6 +47,7 @@ if ($services = getenv("VCAP_SERVICES")) {
 
 // initialize HTTP client
 $guzzle = new GuzzleHttp\Client([
+  //'verify' => false,
   'base_uri' => $app->config['settings']['db']['uri'] . '/',
 ]);
 
@@ -99,8 +100,8 @@ $app->post('/report', function (Request $request) use ($app, $guzzle, $objectsto
   // define validation constraints
   $constraints = new Assert\Collection(array(
     'color' => new Assert\NotBlank(array('groups' => 'report')),
-    'gender' => new Assert\Choice(array('choices' => array('male', 'female'), 'groups' => 'report')),
-    'age' => new Assert\Choice(array('choices' => array('pup', 'adult'), 'groups' => 'report')),
+    'gender' => new Assert\Choice(array('choices' => array('male', 'female', 'unknown'), 'groups' => 'report')),
+    'age' => new Assert\Choice(array('choices' => array('pup', 'adult', 'unknown'), 'groups' => 'report')),
     'description' => new Assert\NotBlank(array('groups' => 'report')),
     'email' =>  new Assert\Email(array('groups' => 'report')),
     'name' => new Assert\NotBlank(array('groups' => 'report')),
@@ -308,32 +309,3 @@ $app->get('/reset-system', function (Request $request) use ($app, $guzzle, $obje
 ->bind('reset-system');
 
 $app->run();
-
-/* 
- * Cloudant design document for searches
- * 
-function (doc) {
-  index("id", doc._id);  
-  if(doc.color) {    
-    index("color", doc.color, {"store": "yes"});  
-  }  
-  if(doc.gender) {    
-    index("gender", doc.gender, {"store": "yes"});  
-  }  
-  if (doc.description) {    
-    index("description", doc.description, {"store": "yes"});  
-  }  
-  if (doc.identifiers){    
-    index("identifiers", doc.identifiers, {"store": "yes"});  
-  }
-  if (doc.datetime){    
-    index("datetime", doc.datetime, {"store": "yes"});  
-  }  
-  if (doc.type){    
-    index("type", doc.type, {"store": "yes"});  
-  }  
-  if (doc.age){    
-    index("age", doc.age, {"store": "yes"});  
-  } 
-}
-*/

@@ -35,7 +35,9 @@
             <div class="row">
               <div class="col-md-8">
                 <strong>
-                {{ r.doc.color|upper }} {{ r.doc.gender|upper }} {{ r.doc.age|upper }}
+                {{ r.doc.color|upper }} 
+                {{ r.doc.gender != 'unknown' ? r.doc.gender|upper : '' }} 
+                {{ r.doc.gender != 'unknown' ? r.doc.age|upper : '' }}
                 </strong>
                 <p>{{ r.doc.description }} <br/>
                 Reported on {{ r.doc.datetime|date("d M Y H:i") }}</p>

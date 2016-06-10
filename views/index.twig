@@ -7,6 +7,12 @@
     <title>Stray Assist</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <style>
+      .hero-unit img {
+        width: 100%;
+        height: auto;
+      }
+    </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -16,7 +22,7 @@
   </head>
   <body>
 
-    <div class="container">  
+    <div class="container">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h4 class="pull-left">Stray Assist</h4>
@@ -35,7 +41,11 @@
         <strong>Error!</strong> {{ message }}
       </div>
       {% endfor %}      
-      
+
+      <div class="hero-unit">
+          <img class="img-responsive" src="hero.png" />
+      </div>
+            
       <div class="row">
         <div class="col-sm-6 panel">
           <div class="panel-heading">Report a stray dog that needs help.</div>
