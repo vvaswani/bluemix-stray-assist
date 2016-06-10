@@ -47,7 +47,7 @@ if ($services = getenv("VCAP_SERVICES")) {
 
 // initialize HTTP client
 $guzzle = new GuzzleHttp\Client([
-  //'verify' => false,
+  'verify' => false,
   'base_uri' => $app->config['settings']['db']['uri'] . '/',
 ]);
 
@@ -262,7 +262,7 @@ $app->get('/map/{id}', function ($id) use ($app, $guzzle) {
     $row = $result->rows[0];
     $latitude = $row->doc->latitude;
     $longitude = $row->doc->longitude;
-    $mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?key=' . $app->config['settings']['maps']['key'] . '&size=640x480&maptype=roadmap&scale=2&markers=color:green|' . sprintf('%f,%f', $latitude, $longitude);
+    $mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?key=' . $app->config['settings']['maps']['key'] . '&size=640x480&maptype=roadmap&scale=1&zoom=19&markers=color:green|' . sprintf('%f,%f', $latitude, $longitude);
     return $app['twig']->render('map.twig', array('mapUrl' => $mapUrl, 'result' => $row));
   } else {
     $app['session']->getFlashBag()->add('error', 'Map could not be generated.');
